@@ -1,2 +1,70 @@
-package org.example;public class DataBaseConnection {
+package org.example;
+import java.sql.*;
+import java.util.Scanner;
+import java.util.logging.Logger;
+class DataBaseConnection{
+    static DataBaseConnection dbc=null;
+    private DataBaseConnection(){}
+    static Connection conn;
+    public static DataBaseConnection getDataBaseConnection(){
+        if(dbc==null)
+            dbc=new DataBaseConnection();
+        return dbc;
+    }
+    protected void newConnection(String url,String user,String pass) throws SQLException{
+        conn= DriverManager.getConnection(url,user,pass);
+        System.out.println("New Connection Connected Successfully");
+    }
+    protected void closeConnection() throws SQLException{
+        conn.close();
+        System.out.println("All Connection Closed Successfully");
+    }
+}
+public class JDBCPoll {
+    public static void main(String[] args) throws SQLException {
+        Logger l=Logger.getLogger("com.api.jar");
+        Scanner sc=new Scanner(System.in);
+        l.info("Welcome to jdbc Connection Pool Demo Program");
+        l.info("Enter the url:");
+        String url=sc.nextLine();
+        l.info("Enter the username:");
+        String user=sc.nextLine();
+        l.info("Enter the password:");
+        String pass=sc.nextLine();
+        int n=0;
+        while(n!=4){
+            l.info("Enter your choice:");
+            l.info("""
+                    \n1.New connection
+                    2.New connection with different url or username
+                    3.Close all connection
+                    3.Exit""");
+            n = sc.nextInt();
+            sc.nextLine();
+            switch (n) {
+                case 1 -> {
+                    DataBaseConnection d1 = DataBaseConnection.getDataBaseConnection();
+                    d1.newConnection(url,user,pass);
+                }
+                case 2->{
+                    l.info("Enter the url:");
+                    String url2=sc.nextLine();
+                    l.info("Enter the username:");
+                    String user2=sc.nextLine();
+                    l.info("Enter the password:");
+                    String pass2=sc.nextLine();
+                    DataBaseConnection d3=DataBaseConnection.getDataBaseConnection();
+                    d3.newConnection(url2,user2,pass2);
+                }
+                case 3 -> {
+                    DataBaseConnection d2 = DataBaseConnection.getDataBaseConnection();
+                    d2.closeConnection();
+
+                }
+                case 4 -> l.info("Thanks for coming");
+                default -> l.info("Enter the correct choice:");
+
+            }
+        }
+    }
 }
