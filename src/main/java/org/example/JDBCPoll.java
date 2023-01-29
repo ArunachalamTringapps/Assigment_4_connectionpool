@@ -1,9 +1,10 @@
 package org.example;
 import java.sql.*;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Logger;
 class DataBaseConnection{
     static DataBaseConnection dbc=null;
+    Logger l=Logger.getLogger("com.api.jar");
     private DataBaseConnection(){}
     static Connection conn;
     public static DataBaseConnection getDataBaseConnection(){
@@ -13,11 +14,11 @@ class DataBaseConnection{
     }
     protected void newConnection(String url,String user,String pass) throws SQLException{
         conn= DriverManager.getConnection(url,user,pass);
-        System.out.println("New Connection Connected Successfully");
+        l.info("New Connection Connected Successfully");
     }
     protected void closeConnection() throws SQLException{
         conn.close();
-        System.out.println("All Connection Closed Successfully");
+        l.info("All Connection Closed Successfully");
     }
 }
 public class JDBCPoll {
@@ -35,7 +36,7 @@ public class JDBCPoll {
         while(n!=4){
             l.info("Enter your choice:");
             l.info("""
-                    \n1.New connection
+                    1.New connection
                     2.New connection with different url or username
                     3.Close all connection
                     3.Exit""");
