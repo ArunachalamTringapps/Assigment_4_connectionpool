@@ -4,20 +4,20 @@ import java.util.*;
 import java.util.logging.Logger;
 class DataBaseConnection{
     static DataBaseConnection dbc=null;
-    Logger l=Logger.getLogger("com.api.jar");
+    static Logger l=Logger.getLogger("com.api.jar");
     private DataBaseConnection(){}
-    static Connection conn;
+    Connection conn;
     public static DataBaseConnection getDataBaseConnection(){
         if(dbc==null)
             dbc=new DataBaseConnection();
         return dbc;
     }
     protected void newConnection(String url,String user,String pass) throws SQLException{
-        conn= DriverManager.getConnection(url,user,pass);
+        this.conn= DriverManager.getConnection(url,user,pass);
         l.info("New Connection Connected Successfully");
     }
     protected void closeConnection() throws SQLException{
-        conn.close();
+        this.conn.close();
         l.info("All Connection Closed Successfully");
     }
 }
