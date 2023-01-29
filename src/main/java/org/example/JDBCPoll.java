@@ -13,11 +13,12 @@ class DataBaseConnection{
         return dbc;
     }
     protected void newConnection(String url,String user,String pass) throws SQLException{
-        this.conn= DriverManager.getConnection(url,user,pass);
+        conn= DriverManager.getConnection(url,user,pass);
         l.info("New Connection Connected Successfully");
     }
-    protected void closeConnection() throws SQLException{
-        this.conn.close();
+    protected void closeConnection(String url,String user,String pass) throws SQLException{
+        conn= DriverManager.getConnection(url,user,pass);
+        conn.close();
         l.info("All Connection Closed Successfully");
     }
 }
@@ -33,13 +34,13 @@ public class JDBCPoll {
         l.info("Enter the password:");
         String pass=sc.nextLine();
         int n=0;
-        while(n!=4){
+        while(n<4){
             l.info("Enter your choice:");
             l.info("""
                     1.New connection
                     2.New connection with different url or username
                     3.Close all connection
-                    3.Exit""");
+                    Enter some other numbers to Exit""");
             n = sc.nextInt();
             sc.nextLine();
             switch (n) {
@@ -59,10 +60,8 @@ public class JDBCPoll {
                 }
                 case 3 -> {
                     DataBaseConnection d2 = DataBaseConnection.getDataBaseConnection();
-                    d2.closeConnection();
-
+                    d2.closeConnection(url,user,pass);
                 }
-                case 4 -> l.info("Thanks for coming");
                 default -> l.info("Enter the correct choice:");
 
             }
