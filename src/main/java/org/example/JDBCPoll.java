@@ -12,11 +12,11 @@ class DataBaseConnection{
             dbc=new DataBaseConnection();
         return dbc;
     }
-    protected void newConnection(String url,String user,String pass) throws Exception{
+    protected void newConnection(String url,String user,String pass) throws SQLException{
         this.conn= DriverManager.getConnection(url,user,pass);
         l.info("New Connection Connected Successfully");
     }
-    protected void closeConnection() throws Exception{
+    protected void closeConnection() throws SQLException{
         this.conn.close();
         l.info("All Connection Closed Successfully");
     }
