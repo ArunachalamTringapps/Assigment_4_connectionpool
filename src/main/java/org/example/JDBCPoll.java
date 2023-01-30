@@ -12,17 +12,17 @@ class DataBaseConnection{
             dbc=new DataBaseConnection();
         return dbc;
     }
-    protected void newConnection(String url,String user,String pass) throws SQLException{
+    protected void newConnection(String url,String user,String pass) throws Exception{
         this.conn= DriverManager.getConnection(url,user,pass);
         l.info("New Connection Connected Successfully");
     }
-    protected void closeConnection() throws SQLException{
+    protected void closeConnection() throws Exception{
         this.conn.close();
         l.info("All Connection Closed Successfully");
     }
 }
 public class JDBCPoll {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws Exception {
         Logger l=Logger.getLogger("com.api.jar");
         Scanner sc=new Scanner(System.in);
         l.info("Welcome to jdbc Connection Pool Demo Program");
