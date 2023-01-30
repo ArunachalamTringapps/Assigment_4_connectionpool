@@ -61,7 +61,7 @@ public class JDBCPoll {
                     DataBaseConnection d3 = DataBaseConnection.getDataBaseConnection();
                     d3.closeConnection();
                 }
-                default -> l.info("Enter the correct choice:");
+                default -> l.info("Thanks for coming");
 
             }
         }
