@@ -1,7 +1,9 @@
 package org.example;
-import java.sql.*;
-import java.util.*;
-import java.util.logging.Level;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Logger;
 class DataBaseConnection{
     static DataBaseConnection dbc=null;
@@ -23,10 +25,10 @@ class DataBaseConnection{
     }
 }
 public class JDBCPoll {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Logger l=Logger.getLogger("com.api.jar");
         Scanner sc=new Scanner(System.in);
-        try {
+
             l.info("Welcome to jdbc Connection Pool Demo Program");
             l.info("Enter the url:");
             String url = sc.nextLine();
@@ -67,8 +69,6 @@ public class JDBCPoll {
 
                 }
             }
-        }catch (Exception ex){
-            l.log(Level.INFO, () -> "Error occur: " + ex);
-        }
+
     }
 }
